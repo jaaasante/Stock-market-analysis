@@ -43,4 +43,4 @@ you can actually look at and understand quickly.
 - `tableau_dashboard.png` — screenshot of the finished dashboard
 
 ## Dashboard
-[View the live Tableau dashboard here]([https://public.tableau.com/app/profile/joshua.akwasi.asante/viz/StockMarketAnalysisProject_17732706100130/Dashboard1?publish=yes])
+[View the live Tableau dashboard here([https://public.tableau.com/app/profile/joshua.akwasi.asante/viz/StockMarketAnalysisProject_17732706100130/Dashboard1?publish=yes])
