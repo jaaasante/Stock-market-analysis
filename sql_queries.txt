@@ -1,0 +1,100 @@
+-- Query 1: Best Performing Companies
+SELECT 'AAPL' as company, AVG(CAST(REPLACE(field2,'%','') AS REAL)) as avg_return FROM Monthly_returns WHERE field2 != 'AAPL' AND field2 IS NOT NULL AND field2 != ''
+UNION ALL
+SELECT 'MSFT', AVG(CAST(REPLACE(field3,'%','') AS REAL)) FROM Monthly_returns WHERE field3 != 'MSFT' AND field3 IS NOT NULL AND field3 != ''
+UNION ALL
+SELECT 'NVDA', AVG(CAST(REPLACE(field4,'%','') AS REAL)) FROM Monthly_returns WHERE field4 != 'NVDA' AND field4 IS NOT NULL AND field4 != ''
+UNION ALL
+SELECT 'GOOGL', AVG(CAST(REPLACE(field5,'%','') AS REAL)) FROM Monthly_returns WHERE field5 != 'GOOGL' AND field5 IS NOT NULL AND field5 != ''
+UNION ALL
+SELECT 'XOM', AVG(CAST(REPLACE(field6,'%','') AS REAL)) FROM Monthly_returns WHERE field6 != 'XOM' AND field6 IS NOT NULL AND field6 != ''
+UNION ALL
+SELECT 'CVX', AVG(CAST(REPLACE(field7,'%','') AS REAL)) FROM Monthly_returns WHERE field7 != 'CVX' AND field7 IS NOT NULL AND field7 != ''
+UNION ALL
+SELECT 'NEE', AVG(CAST(REPLACE(field8,'%','') AS REAL)) FROM Monthly_returns WHERE field8 != 'NEE' AND field8 IS NOT NULL AND field8 != ''
+UNION ALL
+SELECT 'FB', AVG(CAST(REPLACE(field9,'%','') AS REAL)) FROM Monthly_returns WHERE field9 != 'FB' AND field9 IS NOT NULL AND field9 != ''
+UNION ALL
+SELECT 'COP', AVG(CAST(REPLACE(field10,'%','') AS REAL)) FROM Monthly_returns WHERE field10 != 'COP' AND field10 IS NOT NULL AND field10 != ''
+UNION ALL
+SELECT 'HAL', AVG(CAST(REPLACE(field11,'%','') AS REAL)) FROM Monthly_returns WHERE field11 != 'HAL' AND field11 IS NOT NULL AND field11 != ''
+ORDER BY avg_return DESC;
+
+-- Query 2: Negative Months Count
+SELECT 'AAPL' as company, COUNT(*) as negative_months FROM Monthly_returns WHERE CAST(REPLACE(field2,'%','') AS REAL) < 0
+UNION ALL
+SELECT 'MSFT', COUNT(*) FROM Monthly_returns WHERE CAST(REPLACE(field3,'%','') AS REAL) < 0
+UNION ALL
+SELECT 'NVDA', COUNT(*) FROM Monthly_returns WHERE CAST(REPLACE(field4,'%','') AS REAL) < 0
+UNION ALL
+SELECT 'GOOGL', COUNT(*) FROM Monthly_returns WHERE CAST(REPLACE(field5,'%','') AS REAL) < 0
+UNION ALL
+SELECT 'XOM', COUNT(*) FROM Monthly_returns WHERE CAST(REPLACE(field6,'%','') AS REAL) < 0
+UNION ALL
+SELECT 'CVX', COUNT(*) FROM Monthly_returns WHERE CAST(REPLACE(field7,'%','') AS REAL) < 0
+UNION ALL
+SELECT 'NEE', COUNT(*) FROM Monthly_returns WHERE CAST(REPLACE(field8,'%','') AS REAL) < 0
+UNION ALL
+SELECT 'FB', COUNT(*) FROM Monthly_returns WHERE CAST(REPLACE(field9,'%','') AS REAL) < 0
+UNION ALL
+SELECT 'COP', COUNT(*) FROM Monthly_returns WHERE CAST(REPLACE(field10,'%','') AS REAL) < 0
+UNION ALL
+SELECT 'HAL', COUNT(*) FROM Monthly_returns WHERE CAST(REPLACE(field11,'%','') AS REAL) < 0
+ORDER BY negative_months DESC;
+-- Query 3: Best and Worst Single Month
+SELECT 'AAPL' as company, MAX(CAST(REPLACE(field2,'%','') AS REAL)) as best_month, MIN(CAST(REPLACE(field2,'%','') AS REAL)) as worst_month FROM Monthly_returns WHERE field2 != 'AAPL' AND field2 IS NOT NULL AND field2 != ''
+UNION ALL
+SELECT 'MSFT', MAX(CAST(REPLACE(field3,'%','') AS REAL)), MIN(CAST(REPLACE(field3,'%','') AS REAL)) FROM Monthly_returns WHERE field3 != 'MSFT' AND field3 IS NOT NULL AND field3 != ''
+UNION ALL
+SELECT 'NVDA', MAX(CAST(REPLACE(field4,'%','') AS REAL)), MIN(CAST(REPLACE(field4,'%','') AS REAL)) FROM Monthly_returns WHERE field4 != 'NVDA' AND field4 IS NOT NULL AND field4 != ''
+UNION ALL
+SELECT 'GOOGL', MAX(CAST(REPLACE(field5,'%','') AS REAL)), MIN(CAST(REPLACE(field5,'%','') AS REAL)) FROM Monthly_returns WHERE field5 != 'GOOGL' AND field5 IS NOT NULL AND field5 != ''
+UNION ALL
+SELECT 'XOM', MAX(CAST(REPLACE(field6,'%','') AS REAL)), MIN(CAST(REPLACE(field6,'%','') AS REAL)) FROM Monthly_returns WHERE field6 != 'XOM' AND field6 IS NOT NULL AND field6 != ''
+UNION ALL
+SELECT 'CVX', MAX(CAST(REPLACE(field7,'%','') AS REAL)), MIN(CAST(REPLACE(field7,'%','') AS REAL)) FROM Monthly_returns WHERE field7 != 'CVX' AND field7 IS NOT NULL AND field7 != ''
+UNION ALL
+SELECT 'NEE', MAX(CAST(REPLACE(field8,'%','') AS REAL)), MIN(CAST(REPLACE(field8,'%','') AS REAL)) FROM Monthly_returns WHERE field8 != 'NEE' AND field8 IS NOT NULL AND field8 != ''
+UNION ALL
+SELECT 'FB', MAX(CAST(REPLACE(field9,'%','') AS REAL)), MIN(CAST(REPLACE(field9,'%','') AS REAL)) FROM Monthly_returns WHERE field9 != 'FB' AND field9 IS NOT NULL AND field9 != ''
+UNION ALL
+SELECT 'COP', MAX(CAST(REPLACE(field10,'%','') AS REAL)), MIN(CAST(REPLACE(field10,'%','') AS REAL)) FROM Monthly_returns WHERE field10 != 'COP' AND field10 IS NOT NULL AND field10 != ''
+UNION ALL
+SELECT 'HAL', MAX(CAST(REPLACE(field11,'%','') AS REAL)), MIN(CAST(REPLACE(field11,'%','') AS REAL)) FROM Monthly_returns WHERE field11 != 'HAL' AND field11 IS NOT NULL AND field11 != ''
+ORDER BY best_month DESC;
+-- Query 4: Sector Comparison
+SELECT 
+    field1 AS company,
+    field2 AS sector,
+    field5 AS eps,
+    field6 AS pe_ratio,
+    field7 AS profit_margin
+FROM financials
+WHERE field1 != 'Company';
+-- Query 5: Full Company Overview
+SELECT 'Technology' AS sector,
+    ROUND((
+        AVG(CAST(REPLACE(field2,'%','') AS REAL)) +
+        AVG(CAST(REPLACE(field3,'%','') AS REAL)) +
+        AVG(CAST(REPLACE(field4,'%','') AS REAL)) +
+        AVG(CAST(REPLACE(field5,'%','') AS REAL)) +
+        AVG(CAST(REPLACE(field9,'%','') AS REAL))
+    ) / 5, 2) AS avg_monthly_return
+FROM Monthly_returns
+WHERE field1 != 'Date' AND field1 IS NOT NULL AND field1 != ''
+UNION ALL
+SELECT 'Energy' AS sector,
+    ROUND((
+        AVG(CAST(REPLACE(field6,'%','') AS REAL)) +
+        AVG(CAST(REPLACE(field7,'%','') AS REAL)) +
+        AVG(CAST(REPLACE(field8,'%','') AS REAL)) +
+        AVG(CAST(REPLACE(field10,'%','') AS REAL)) +
+        AVG(CAST(REPLACE(field11,'%','') AS REAL))
+    ) / 5, 2) AS avg_monthly_return
+FROM Monthly_returns
+WHERE field1 != 'Date' AND field1 IS NOT NULL AND field1 != ''
+ORDER BY avg_monthly_return DESC;
+
+
+Tableau URL
+https://public.tableau.com/app/profile/joshua.akwasi.asante/viz/StockMarketAnalysisProject_17732706100130/Dashboard1?publish=yes
